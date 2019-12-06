@@ -6,7 +6,7 @@ class DetailsPost extends Component{
     constructor(props){
         super(props);
         this.state = {
-            post: null,
+            post: {},
         }
     }
 
@@ -15,7 +15,7 @@ class DetailsPost extends Component{
         let response = await PostService.details(id);
         if(response.ok){
             let data = await response.json();
-            this.setState({post: data});
+            this.setState({post: data.post});
         }
     }
 
@@ -31,7 +31,14 @@ class DetailsPost extends Component{
     render(){
         return(
             <div className="container">
-                
+
+                <div>{this.state.post.title}</div>
+                <div>{this.state.post.content}</div>
+                <div>{this.state.post.championnat}</div>
+                <div>
+                    <img style={{width: '500px'}} src={this.state.post.imgurl}/>
+                </div>
+
                 <h1>{this.state.post ? this.state.post.title : null }</h1>
                 <p>{this.state.post ? this.state.post.body : null }</p>
 

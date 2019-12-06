@@ -6,14 +6,11 @@ class Home extends Component{
 
     constructor(props){
         super(props);
-        
         //base de données interne
         this.state = {
-            title: "Fifa stats",
+            title: "Classement Ballon d'Or - 2019",
             posts: []
         }
-
-
     }
 
     async componentDidMount(){        
@@ -23,31 +20,30 @@ class Home extends Component{
             //La réponse est de type 200
             let data = await response.json();
             console.log(data);
-            this.setState({posts: data.posts});
+            this.setState({
+                posts:data.posts
+            });
         }
     }
 
-
-    async deletePost(id){
-        let response = await PostService.delete(id);
-        if(response.ok){
-            let posts = this.state.posts;
-            let index = posts.findIndex(post => post.id === id);
-            posts.splice(index, 1);
-
-            this.setState({posts: posts});
-        }
+    async addFavPost(id) {
+        console.log("addFavPost");
     }
 
     render(){
         return(
-            <div className="container">
+            <div>
+                <br></br>
+                <h2>{this.state.title}</h2>
+                <img style={{width: 1350, height: 600}} src="https://photos.lci.fr/images/1024/576/ballon-d-or-2019-france-football-7332bc-0@1x.jpeg" />
                 <table className="table">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Joueur</th>
-                            <th>Club actuel</th>
+                            <th>Club</th>
+                            <th>Championnat</th>
+                            <th>Aperçu</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -56,7 +52,7 @@ class Home extends Component{
                             this.state.posts.length !== 0 ?
                                 this.state.posts.map((item, index) => {
                                     return (
-                                        <Post key={index} data={item} deletePost={(id) => this.deletePost(id)}/>
+                                        <Post key={index} data={item}/>
                                     )
                                 })
                             : <p>Il n'y a aucun post.</p>

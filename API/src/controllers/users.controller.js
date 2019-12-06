@@ -2,6 +2,21 @@ import User from "../models/User";
 
 class UserController{
 
+    static async list(request,response){
+        let status=200;
+        let body={};
+        try {
+            // récuperation de tout les posts 
+            let users = await User.find().populate("role");
+            body={users, 'message':'List users'};
+
+        } catch (error) {
+            status=500;
+            body={'message':error.message};
+        }
+        return response.status(status).json(body);
+    }
+
     static async create(request,response){
         let status=200;
         let body={};
@@ -25,7 +40,7 @@ class UserController{
         try {
             let user=await User.findOne({
                 email:request.body.email
-            });
+            }).populate("role");
 
             if (user.password === request.body.password) {
                 body={user,'message': 'okay'}

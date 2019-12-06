@@ -45,17 +45,17 @@ class Inscription extends Component{
 
                     <div className="form-group">
                         <label>Nom d'utilisateur</label>
-                        <input required id="username1" onChange={(e) => this.handleChange(e)} placeholder="Entrer votre pseudo" type="text" className="form-control" value={this.state.title} onChange={(e) => this.handleChange(e)}/>
+                        <input style={{width: '500px'}} required id="username1" onChange={(e) => this.handleChange(e)} placeholder="Entrer votre pseudo" type="text" className="form-control" value={this.state.title} onChange={(e) => this.handleChange(e)}/>
                     </div>
 
                     <div className="form-group">
                         <label>Adresse email</label>
-                        <input required id="email1" onChange={(e) => this.handleChange(e)} placeholder="Entrer votre adresse email" type="text" className="form-control" value={this.state.title} onChange={(e) => this.handleChange(e)}/>
+                        <input style={{width: '500px'}} required id="email1" onChange={(e) => this.handleChange(e)} placeholder="Entrer votre adresse email" type="text" className="form-control" value={this.state.title} onChange={(e) => this.handleChange(e)}/>
                     </div>
 
                     <div className="form-group">
                         <label>Mot de passe</label>
-                        <input required id="password1" onChange={(e) => this.handleChange(e)} placeholder="Entrer votre mot de passe" type="password" className="form-control" onChange={(e) => this.handleChange(e)}/>
+                        <input style={{width: '500px'}} required id="password1" onChange={(e) => this.handleChange(e)} placeholder="Entrer votre mot de passe" type="password" className="form-control" onChange={(e) => this.handleChange(e)}/>
                     </div>
 
                     <button type="submit" className="btn btn-primary">S'inscrire</button>

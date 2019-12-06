@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PostService from '../services/posts.service';
 
-class AddPost extends Component{
+class ModifyPost extends Component{
 
     constructor(props){
         super(props);
@@ -25,7 +25,6 @@ class AddPost extends Component{
         e.preventDefault();
         this.setState({success: false});
         let body = {
-            id: this.state.id,
             title: this.state.title,
             content : this.state.content,
             championnat : this.state.championnat,
@@ -33,11 +32,13 @@ class AddPost extends Component{
             fiche: this.state.fiche
         }; 
         console.log(body);
-        let response = await PostService.create(body);
+        let id = this.props.match.params.id;
+        console.log(id);
+        let response = await PostService.update(id, body);
         if(response.ok){
             this.setState({
                 success: true,
-                msgSuccess: "Player is created with successfull"
+                msgSuccess: "Player is modified with successfull"
             })
         }
     }
@@ -46,16 +47,11 @@ class AddPost extends Component{
         return (
             <div className="container">
                 <br></br>
-                <h2>Ajouter un joueur</h2>
+                <h2>Modifier un joueur</h2>
 
                 <div className="row">
                     <div className="col-md-6">
                     <form onSubmit={(e) => this.submit(e)}>
-
-                        <div className="form-group">
-                            <label>Rang au classement du ballon d'or</label>
-                            <input style={{width: '500px'}} type="text" className="form-control" required id="id" onChange={(e) => this.handleChange(e)}/>
-                        </div>
                         
                         <div className="form-group">
                             <label>Nom du joueur</label>
@@ -83,14 +79,13 @@ class AddPost extends Component{
                             </textarea>
                         </div>
 
-                        <button type="submit" className="btn btn-primary">Ajouter</button>
+                        <button type="submit" className="btn btn-primary">Modifier</button>
                     </form>
                     </div>
                     <div className="col-md-6">
                         <img src = "https://image.flaticon.com/icons/svg/606/606668.svg" />
                     </div>
                 </div>
-                
                 
                 {
                     this.state.success === true ? <p>{this.state.msgSuccess}</p> : null 
@@ -99,7 +94,6 @@ class AddPost extends Component{
             </div>
         )
     }
-
 }
 
-export default AddPost;
+export default ModifyPost;

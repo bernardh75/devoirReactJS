@@ -27,6 +27,8 @@ router.post('/users/create', UsersController.create);
 //UsersConnection
 router.post('/users/connexion', UsersController.connexion);
 
+//Get users
+router.get('/users', UsersController.list);
 
 
 export default router;

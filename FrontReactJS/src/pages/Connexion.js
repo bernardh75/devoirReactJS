@@ -37,6 +37,9 @@ class Connexion extends Component{
                 msgSuccess: "User is connected with successfull"
             })
             sessionStorage.setItem("login", true);
+            let role = data.user.role.role;
+            console.log(role);
+            sessionStorage.setItem("admin", role);
             this.setState({redirect: true});
         } else {
             this.setState({msgSuccess: data.message});  
@@ -58,19 +61,17 @@ class Connexion extends Component{
 
                     <div className="form-group">
                         <label>Email</label>
-                        <input placeholder="Entrer votre adresse email" type="text" className="form-control" required id="email1" value={this.state.title} onChange={(e) => this.handleChange(e)}/>
+                        <input style={{width: '500px'}} placeholder="Entrer votre adresse email" type="text" className="form-control" required id="email1" value={this.state.title} onChange={(e) => this.handleChange(e)}/>
                     </div>
 
                     <div className="form-group">
                         <label>Mot de passe</label>
-                        <input placeholder="Entrer votre mot de passe" type="password" className="form-control" required id="password1" onChange={(e) => this.handleChange(e)}/>
+                        <input style={{width: '500px'}} placeholder="Entrer votre mot de passe" type="password" className="form-control" required id="password1" onChange={(e) => this.handleChange(e)}/>
                     </div>
 
                     <button type="submit" className="btn btn-primary">Se connecter</button>
 
                 </form>
-
-                <a href="/forgotpassword">Mot de passe oublié ?</a>
 
                 {
                     this.state.success === true ? <p>{this.state.msgSuccess}</p> : null 

@@ -10,6 +10,7 @@ import Inscription from './pages/Inscription';
 import AddChamp from './pages/AddChamp';
 import Stats from './pages/Stats';
 import {UsersTop} from './pages/UsersTop';
+import ModifyPost from './pages/ModifyPost';
 
 class App extends Component{
 
@@ -19,12 +20,13 @@ class App extends Component{
                 <Header />
                 <Route path="/" exact component={Home} />
                 <Route path="/posts/:id" exact component={DetailsPost} />
-                <Route path="/ajouter-un-post" exact component={AddPost} />
+                <Route path="/ajouter-un-joueur" exact component={AddPost} />
                 <Route path="/connexion" exact component={Connexion} />
                 <Route path="/inscription" exact component={Inscription} />
                 <Route path="/ajouter-un-championnat" exact component={AddChamp} />
                 <Route path="/users-top" exact component={UsersTop} />
                 <Route path="/classement-et-statistiques" exact component={Stats} />
+                <Route path="/modifier-un-joueur/:id" exact component={ModifyPost} />
                 <Footer />
             </BrowserRouter>
         )

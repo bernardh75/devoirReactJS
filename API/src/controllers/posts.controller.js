@@ -1,3 +1,4 @@
+
 import Post from "../models/Post";
 
 class PostController{
@@ -57,8 +58,12 @@ class PostController{
         let body={};
         try {
             let post=await Post.create({
-                title:request.body.montitre, //title vient du nom de l'attribut dans mon dicument ( bdd ) details dans Post.js
-                content:request.body.moncontent//moncontent est le nom de l'attribut dans le body
+                id: request.body.id,
+                title: request.body.title, 
+                content: request.body.content,
+                championnat: request.body.championnat,
+                imgurl: request.body.imgurl,
+                fiche: request.body.fiche
             });
             body={post,'message': 'okay'}
         } catch (error) {
@@ -67,12 +72,14 @@ class PostController{
         }
         return response.status(status).json(body);
     }
+
+
     static async details ( request,response){
         let status=200;
         let body={};
         try {
-            let id=request.params.id;
-            let post= await Post.findById(id);
+            let id = {id: request.params.id};
+            let post= await Post.findOne(id);
             body={post,'message': 'un post'}
 
         } catch (error) {
@@ -85,10 +92,10 @@ class PostController{
         let status=200; 
         let body={};
         try{
-            let id= request.params.id; 
-            await Post.deleteOne(id);
+            let id = {id: request.params.id}; 
+            let post = await Post.findOne(id);
+            post.delete();
             body={post, 'message':'un post'};
-
         }
         catch(error){
             status=500;
@@ -96,15 +103,15 @@ class PostController{
         }
         return response.status(status).json(body);
     }
-    static async update ( request, response){
+
+    static async update (request, response){
         let status=200; 
         let body={};
         try{
-            let id= request.params.id; 
-            let post = await Post.findById(id);
+            let id = {id: request.params.id};  
+            let post = await Post.findOne(id);
             await post.update(request.body);
             body={post, 'message':'un post'};
-
         }
         catch(error){
             status=500;

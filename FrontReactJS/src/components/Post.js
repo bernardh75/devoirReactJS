@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
+import PostService from '../services/posts.service';
 
 class Post extends Component{
 
@@ -24,13 +25,13 @@ class Post extends Component{
             this.setState({redirect: true});
         }
     }
-
-    //TODO:DELETE
-    /*logout() {
-        sessionStorage.setItem("userData", '');
-        sessionStorage.clear();
-        this.setState({redirect: true});
-    }*/
+    
+    async deletePost(id) {
+        let response = await PostService.delete(id);
+        if(response.ok){
+            this.props.history.push('/');        
+        }
+    }
     
     render(){
 
@@ -39,25 +40,31 @@ class Post extends Component{
         }
 
         return(
-            <React.Fragment>
-            {/*TODO:DELETE*/}
-            {/*<button type="button" className="btn btn-secondary" onClick={this.logout}>Logout</button>*/}
-            <tr>
+            <tr >
                 <td>
-                    <Link to={`/posts/${this.props.data.id}`}>{this.props.data.id}</Link>
+                    <Link to={`/posts/${this.props.data.id}`}>{this.props.data.id}</Link><br/>
                 </td>
                 <td>{this.props.data.title}</td>
-                <td>{this.props.data.content.substr(0, 20)}...</td>
+                <td>{this.props.data.content}</td>
+                <td>{this.props.data.championnat}</td>
                 <td>
-                    <button className="btn btn-danger" onClick={() => this.props.deletePost(this.props.data.id)}>Supprimer</button>
+                    <img style={{width: '500px'}} src={this.props.data.imgurl}/>
+                </td>
+                <td>
+                    <button 
+                    className="btn btn-danger" 
+                    onClick={() => this.deletePost(this.props.data.id)}>Supprimer</button>
+                    <br></br>
+                    <button className="btn btn-primary">
+                        <Link to={`/modifier-un-joueur/${this.props.data.id}`}>Modifier</Link>
+                    </button>
+                    <br></br>
+                    <button 
+                    className="btn btn-success">Ajouter aux favoris</button>
                 </td>
             </tr>
-            </React.Fragment>
-            
         )
     }
-
-
 }
 
 export default Post;
